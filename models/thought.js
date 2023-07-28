@@ -1,5 +1,32 @@
 const { Schema, model, Types } = require('mongoose');
 
+const formatDate = (date) => {
+    return date.toDateString();
+}
+
+const reactionSchema = new Schema (
+    {
+        reactionId: {
+            type: Schema.Types.ObjectId,
+            default: () => new Types.ObjectId(),
+        },
+        reactionBody: {
+            type: String,
+            required: true,
+            maxLength: 280,
+        },
+        username: {
+            type: String,
+            required: true,
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now,
+            get: (date) => formatDate(date)
+        }
+    }
+)
+
 const thoughtSchema = new Schema (
     {
         thoughtText: {
@@ -11,7 +38,7 @@ const thoughtSchema = new Schema (
         createdAt: {
             type: Date,
             default: Date.now,
-            // get: 
+            get: (date) => formatDate(date)
         },
         username: {
             type: String,
@@ -27,28 +54,6 @@ const thoughtSchema = new Schema (
     }
 )
 
-const reactionSchema = new Schema (
-    {
-        reactionId: {
-            type: Schema.Types.ObjectId,
-            default: Types.ObjectId,
-        },
-        reactionBody: {
-            type: String,
-            required: true,
-            maxLength: 280,
-        },
-        username: {
-            type: String,
-            required: true,
-        },
-        createdAt: {
-            type: Date,
-            default: Date.now,
-            // getter method
-        }
-    }
-)
 
-const { Thought } = require('thought', thoughtSchema);
+const Thought = model('thought', thoughtSchema);
 module.exports = Thought;
