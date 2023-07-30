@@ -19,7 +19,7 @@ router
     .delete(deleteUser)
 
 router
-    .route('/:userId/reactions')
+    .route('/:userId/reactions/:friendId')
     .post(addFriend)
     .delete(deleteFriend)
 
