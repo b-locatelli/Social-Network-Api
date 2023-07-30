@@ -12,12 +12,16 @@ module.exports = {
           .select('-__v')
           .populate('thoughts')
           .populate('friends')
-          .then((user) =>
-            !user
-              ? res.status(404).json({ message: 'No User with that ID' })
-              : res.json(user)
-          )
-          .catch((err) => res.status(500).json(err));
+          .then((user) => {
+            if (!user) {
+              return res.status(404).json({ message: 'No User with that ID' });
+            }
+            return res.json(user);
+          })
+          .catch((err) => {
+            console.error(err); 
+            res.status(500).json({ message: 'Internal Server Error' });
+          });
       },
 
       createUser(req, res) {
@@ -38,7 +42,7 @@ module.exports = {
             .then((user) =>
               !user
                 ? res.status(404).json({ message: 'No User with this id!' })
-                : res.json(User)
+                : res.json(user)
             )
             .catch((err) => res.status(500).json(err));
         },

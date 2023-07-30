@@ -13,13 +13,13 @@ const {
 router.route('/').get(getUser).post(createUser);
 
 router
-    .route('./:userId')
+    .route('/:userId')
     .get(getSingleUser)
     .put(updateUser)
     .delete(deleteUser)
 
 router
-    .route('/:userId/reactions/:friendId')
+    .route('/:userId/friends/:friendId')
     .post(addFriend)
     .delete(deleteFriend)
 

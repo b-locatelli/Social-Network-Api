@@ -1,4 +1,5 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
+const { Thought } = require('./thought');
 
 var validateEmail = function(email) {
     var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -44,5 +45,5 @@ userSchema.virtual('friendCount').get(function () {
     return this.friends.length;
   });
 
-const User = model('user', userSchema);
+const User = model('User', userSchema);
 module.exports = User;
